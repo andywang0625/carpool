@@ -35,7 +35,7 @@ public class Comment {
         return postId;
     }
 
-    public void setPostId(Integer PostId) {
+    public void setPostId(Integer postId) {
         this.postId = postId;
     }
 
