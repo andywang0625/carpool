@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-CarpoolApplication<carpool>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.web.carpool.CarpoolApplication",
+      "projectName": "carpool",
+      "args": ""
+    }
+  ]
+}
