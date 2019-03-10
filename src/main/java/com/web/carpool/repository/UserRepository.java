@@ -8,6 +8,6 @@ import com.web.carpool.model.User;
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 // CRUD refers Create, Read, Update, Delete
 @Repository("userRepository")
-public interface UserRepository extends JpaRepository<User, Integer> {
-	User findById(int id);
+public interface UserRepository extends JpaRepository<User, Long> {
+	User findById(long id);
 }

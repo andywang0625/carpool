@@ -23,7 +23,7 @@ public class Vehicle {
 
   @Embedded
   @NotEmpty(message = "Please provide your vehicle's brand")
-  private VehicleBrand brand;
+  private VehicleBrand brand = VehicleBrand.UNKNOWN;
 
   @Column(name = "model", nullable = false)
   @NotEmpty(message = "Please provide your vehicle's model")
@@ -31,7 +31,7 @@ public class Vehicle {
 
   @Embedded
   @NotEmpty(message = "Please provide your vehicle's color")
-  private VehicleColor color;
+  private VehicleColor color = VehicleColor.UNKNOWN;
 
   @Column(name = "manufactured_date", nullable = false)
   @Basic

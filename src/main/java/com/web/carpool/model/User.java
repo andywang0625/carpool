@@ -36,10 +36,10 @@ public class User {
 	@NotEmpty(message = "Please provide your phone number")
 	private String phone;
 
-	@Column(name = "preferred_language", columnDefinition = "default 'UNKNOWN'")
+	@Column(name = "preferred_language")
 	@Basic
 	@Enumerated(EnumType.STRING)
-	private Language language;
+	private Language language = Language.UNKNOWN;
 
 	@Embedded
 	@NotEmpty(message = "Please provide your address")
@@ -51,10 +51,10 @@ public class User {
 	@Column(name = "photo_path")
 	private String path;
 
-	@Column(name = "role", columnDefinition = "default 'USER'")
+	@Column(name = "role")
 	@Basic
 	@Enumerated(EnumType.STRING)
-	private Role role;
+	private Role role = Role.USER;
 
 	@Column(name = "created_at", nullable = false, updatable = false)
 	@CreatedDate
@@ -64,8 +64,8 @@ public class User {
 	@LastModifiedDate
 	private Calendar modifiedDate;
 
-	@Column(name = "deleted_at", columnDefinition = "default 'null'")
-	private Calendar deletedDate;
+	@Column(name = "deleted_at")
+	private Calendar deletedDate = null;
 
 	@OneToMany(mappedBy = "user")
 	private List<Vehicle> vehicles;

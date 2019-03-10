@@ -12,15 +12,15 @@ public class Address {
   @Column(name = "line_2")
   private String line2;
 
-  @Column(name = "city", columnDefinition = "default 'UNKNOWN'")
+  @Column(name = "city")
   @Basic
   @Enumerated(EnumType.STRING)
-  private City city;
+  private City city = City.UNKNOWN;
 
-  @Column(name = "province", columnDefinition = "default 'UNKNOWN'")
+  @Column(name = "province")
   @Basic
   @Enumerated(EnumType.STRING)
-  private Province province;
+  private Province province = Province.UNKNOWN;
 
   @Column(name = "post_code")
   private String postCode;
