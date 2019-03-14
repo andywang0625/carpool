@@ -58,9 +58,3 @@ build/
 gradle/
 
 application.properties
-
-gradlew
-
-gradlew.bat
-
-settings.gradle
