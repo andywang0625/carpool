@@ -17,8 +17,8 @@ import java.util.Optional;
 import com.web.carpool.model.Comment;
 import com.web.carpool.repository.CommentRepository;;
 
-@Controller()
-@RequestMapping(path="comment")
+@RestController()
+@RequestMapping(path="comments")
 public class CommentController {
     @Autowired
     private CommentRepository commentRepository;
@@ -40,6 +40,7 @@ public class CommentController {
     @GetMapping(value="")
     public @ResponseBody Iterable<Comment> readAllComment() {
         return commentRepository.findAll();
+        // return "Hello World";
     }
 
     @GetMapping(value="/{id}")
