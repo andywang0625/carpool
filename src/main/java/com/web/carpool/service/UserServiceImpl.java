@@ -1,6 +1,7 @@
 package com.web.carpool.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.web.carpool.model.User;
@@ -10,6 +11,7 @@ import com.web.carpool.repository.UserRepository;
 public class UserServiceImpl implements UserService{
 
 	@Autowired
+	@Qualifier("userRepository")
 	private UserRepository userRepository;
 	
 	@Override
