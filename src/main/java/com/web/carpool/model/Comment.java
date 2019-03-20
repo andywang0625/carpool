@@ -1,73 +1,55 @@
 package com.web.carpool.model;
 
-import java.util.Date;
+import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import lombok.Data;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "comment")
+@Data
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "postId")
-    private Integer postId;
+    private long postId;
 
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "userId")
-    private Integer userId;
+    private long userId;
 
-    // @Column(name = "createTime")
-    // private Date createTime;
+    @Column(name = "createTime", nullable=false, updatable=false)
+    private Calendar createTime;
 
     @Column(name="comment")
+    @NotEmpty(message="Please provide your comment")
     private String comment;
 
     @Column(name="rate")
+    @NotEmpty(message="Please rate your trip")
+    @Max(5)
+    @Min(1)
     private Integer rate;
 
-    public Integer getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Integer postId) {
-        this.postId = postId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    // public Date getCreateTime() {
-    //     return createTime;
-    // }
-
-    // public void setCreateTime(Date createTime) {
-    //     this.createTime = createTime;
-    // }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Integer getRate() {
-        return rate;
-    }
-
-    public void setRate(Integer rate) {
-        this.rate = rate;
-    }
+    @ManyToOne(fetch=FetchType.LAZY, cascade={CascadeType.ALL})
+    @JoinColumn(name="postId")
+    private Post post;
 }

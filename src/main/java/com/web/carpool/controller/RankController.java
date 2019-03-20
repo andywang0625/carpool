@@ -4,8 +4,10 @@ import java.util.Optional;
 
 import com.web.carpool.model.Rank;
 import com.web.carpool.repository.RankRepository;
+import com.web.carpool.service.RankService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,40 +19,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller()
-@RequestMapping(path="rank")
+@RequestMapping(path="/rank")
 public class RankController {
     @Autowired
-    private RankRepository rankRepository;
+    @Qualifier("rankService")
+    private RankService rankService;
 
     @PostMapping(path="")
-    public @ResponseBody Optional<Rank> createRank(@RequestBody Rank rnk) {
-        rankRepository.save(rnk);
-        return rankRepository.findById(rnk.getUserId());
+    public @ResponseBody Rank createRank(@RequestBody Rank rnk) {
+        return rankService.create(rnk);
     }
 
     @GetMapping(value="")
     public @ResponseBody Iterable<Rank> readAllRank() {
-        return rankRepository.findAll();
+        return rankService.readAll();
     }
 
     @GetMapping(value="/{id}")
-    public @ResponseBody Optional<Rank> readRank(@RequestParam Integer id) {
-        return rankRepository.findById(id);
+    public @ResponseBody Rank readRank(@RequestParam long id) {
+        return rankService.read(id);
     }
     
 
     @PutMapping(value="/{id}")
-    public @ResponseBody Optional<Rank> updateRank(@RequestParam Integer id, @RequestBody Rank cmt) {
-        rankRepository.save(cmt);
-        return rankRepository.findById(id);
+    public @ResponseBody Rank updateRank(@RequestParam long id, @RequestBody Rank rnk) {
+        return rankService.update(id, rnk);
     }
 
     @DeleteMapping(value="/{id}")
-    public @ResponseBody String deleteRank(@RequestParam Integer id) {
-        // Optional<Rank> cmt = new Optional<Rank>();
-        // cmt = rankRepository.findById(id);
-        // rankRepository.delete(id);
-        
-        return "Deleted";
+    public @ResponseBody boolean deleteRank(@RequestParam long id) {
+        return rankService.delete(id);
     }
 }

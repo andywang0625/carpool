@@ -1,6 +1,7 @@
 package com.web.carpool.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,53 +16,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Optional;
 
 import com.web.carpool.model.Comment;
-import com.web.carpool.repository.CommentRepository;;
+import com.web.carpool.repository.CommentRepository;
+import com.web.carpool.service.CommentService;;
 
 @RestController()
-@RequestMapping(path="comments")
+@RequestMapping(path="/comments")
 public class CommentController {
     @Autowired
-    private CommentRepository commentRepository;
+    @Qualifier("commentService")
+    private CommentService commentService;
     
-    //Create
     @PostMapping(path="")
     public @ResponseBody Comment createComment(@RequestBody Comment cmt) {
-        Comment cmtReply = new Comment();
-        cmtReply.setPostId(cmt.getPostId());
-        cmtReply.setUserId(cmt.getUserId());
-        cmtReply.setComment(cmt.getComment());
-        cmtReply.setRate(cmt.getRate());
 
-        commentRepository.save(cmt);
-        
-        return cmtReply;
+        return commentService.create(cmt);
     }
     
     @GetMapping(value="")
     public @ResponseBody Iterable<Comment> readAllComment() {
-        return commentRepository.findAll();
+        return commentService.readAll();
         // return "Hello World";
     }
 
     @GetMapping(value="/{id}")
-    public @ResponseBody Optional<Comment> readComment(@RequestParam Integer id) {
-        return commentRepository.findById(id);
+    public @ResponseBody Comment readComment(@RequestParam long id) {
+        return commentService.read(id);
     }
     
 
     @PutMapping(value="/{id}")
-    public @ResponseBody Optional<Comment> updateComment(@RequestParam Integer id, @RequestBody Comment cmt) {
-        commentRepository.save(cmt);
-        return commentRepository.findById(id);
+    public @ResponseBody Comment updateComment(@RequestParam long id, @RequestBody Comment cmt) {
+        return commentService.update(id, cmt);
     }
 
     @DeleteMapping(value="/{id}")
-    public @ResponseBody String deleteComment(@RequestParam Integer id) {
-        // Optional<Comment> cmt = new Optional<Comment>();
-        // cmt = commentRepository.findById(id);
-        // commentRepository.delete(id);
-        
-        return "Deleted";
+    public @ResponseBody boolean deleteComment(@RequestParam long id) {
+        return commentService.delete(id);
     }
     
 }
