@@ -2,21 +2,18 @@ package com.web.carpool.model;
 
 import java.util.Calendar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
@@ -26,16 +23,17 @@ import lombok.Data;
 @Table(name = "comment")
 @Data
 public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "postId")
-    private long postId;
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.AUTO)
+    // @Column(name = "postId")
+    // private long postId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "userId")
     private long userId;
 
+    @CreatedDate
     @Column(name = "createTime", nullable=false, updatable=false)
     private Calendar createTime;
 
@@ -49,7 +47,7 @@ public class Comment {
     @Min(1)
     private Integer rate;
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade={CascadeType.ALL})
-    @JoinColumn(name="postId")
-    private Post post;
+    // @ManyToOne(fetch=FetchType.LAZY, cascade={CascadeType.ALL})
+    // @JoinColumn(name="postId")
+    // private Post post;
 }

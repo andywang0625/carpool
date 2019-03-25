@@ -1,5 +1,7 @@
 package com.web.carpool.service;
 
+import java.util.List;
+
 import com.web.carpool.model.Comment;
 import com.web.carpool.repository.CommentRepository;
 
@@ -14,27 +16,40 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
 
     @Override
-    public Comment create(Comment cmt) {
-        
+    public String test() {
+        return "Test passed";
     }
 
     @Override
-    public Comment readAll() {
-        
+    public Comment create(Comment cmt) {
+        return commentRepository.save(cmt);
     }
 
+    @Override
+    public List<Comment> readAll() {
+        return commentRepository.findAll();
+    }
+    
     @Override
     public Comment read(long id) {
-        
+        return commentRepository.findById(id);
     }
 
     @Override
     public Comment update(long id, Comment cmt) {
-        
+        Comment newComment = new Comment();
+        newComment = cmt;
+        return commentRepository.saveAndFlush(newComment);
     }
 
     @Override
     public Boolean delete(long id) {
-        
+        return true;
+        // try {
+        //     commentRepository.deleteById(id);
+        //     return true;
+        // } catch(Exception exception){
+        //     return false;
+        // }
     }
-}
+}   

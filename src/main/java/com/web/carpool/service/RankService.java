@@ -5,9 +5,10 @@ import java.util.List;
 import com.web.carpool.model.Rank;
 
 public interface RankService {
+    public String test(String id);
     public Rank create(Rank rnk);
     public List<Rank> readAll();
     public Rank read(long id);
-    public Rank update(long id, Rank rnk);
-    public boolean delete(long id);
+    public Rank update(Rank rnk);
+    public void delete(Long id);
 }

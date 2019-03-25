@@ -2,7 +2,6 @@ package com.web.carpool.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.Optional;
-
 import com.web.carpool.model.Comment;
-import com.web.carpool.repository.CommentRepository;
-import com.web.carpool.service.CommentService;;
+import com.web.carpool.service.CommentService; 
 
 @RestController()
 @RequestMapping(path="/comments")
@@ -26,6 +22,11 @@ public class CommentController {
     @Qualifier("commentService")
     private CommentService commentService;
     
+    @GetMapping(path="/test")
+    public @ResponseBody String testComment() {
+        return commentService.test();
+    }
+
     @PostMapping(path="")
     public @ResponseBody Comment createComment(@RequestBody Comment cmt) {
 
