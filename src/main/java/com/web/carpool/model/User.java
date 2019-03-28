@@ -1,53 +1,72 @@
 package com.web.carpool.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-@Entity // This tells Hibernate to make a table out of this class
-@Table(name = "user")
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import lombok.Data;
+
+@Entity
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "t_user")
+@Data
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	private Integer id;
+	private Long id;
 
-	@Column(name = "name")
+	@Embedded
 	@NotEmpty(message = "Please provide your name")
-	private String name;
+	private Name name;
 
-	@Column(name = "email")
+	@Column(name = "email", nullable = false)
 	@Email(message = "Please provide a valid Email")
 	@NotEmpty(message = "Please provide an Email")
 	private String email;
 
-	public Integer getId() {
-		return id;
-	}
+	@Column(name = "phone", nullable = false)
+	@NotEmpty(message = "Please provide your phone number")
+	private String phone;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	@Column(name = "preferred_language")
+	@Basic
+	@Enumerated(EnumType.STRING)
+	private Language language = Language.UNKNOWN;
 
-	public String getName() {
-		return name;
-	}
+	@Embedded
+	@NotEmpty(message = "Please provide your address")
+	private Address address;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+	@Column(name = "license_number")
+	private String licenseNumber;
 
-	public String getEmail() {
-		return email;
-	}
+	@Column(name = "photo_path")
+	private String path;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	@Column(name = "role")
+	@Basic
+	@Enumerated(EnumType.STRING)
+	private Role role = Role.USER;
 
+	@Column(name = "created_at", nullable = false, updatable = false)
+	@CreatedDate
+	private Calendar createdDate;
+
+	@Column(name = "modified_at")
+	@LastModifiedDate
+	private Calendar modifiedDate;
+
+	@Column(name = "deleted_at")
+	private Calendar deletedDate = null;
+
+	@OneToMany(mappedBy = "user")//one-many 主表对应viechle
+	private List<Vehicle> vehicles; // List<T> -> List,Set,Map;  
 }
