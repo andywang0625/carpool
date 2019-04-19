@@ -6,6 +6,11 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PastOrPresent;
+
+import com.web.carpool.model.SharedModels.Address;
+import com.web.carpool.model.SharedModels.Name;
+import com.web.carpool.model.SharedModels.Role;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -15,7 +20,7 @@ import lombok.Data;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "t_user")
+@Table(name = "c_user")
 @Data
 public class User {
 	@Id
@@ -24,7 +29,6 @@ public class User {
 	private Long id;
 
 	@Embedded
-	@NotEmpty(message = "Please provide your name")
 	private Name name;
 
 	@Column(name = "email", nullable = false)
@@ -36,23 +40,16 @@ public class User {
 	@NotEmpty(message = "Please provide your phone number")
 	private String phone;
 
-	@Column(name = "preferred_language")
-	@Basic
-	@Enumerated(EnumType.STRING)
-	private Language language = Language.UNKNOWN;
-
 	@Embedded
-	@NotEmpty(message = "Please provide your address")
 	private Address address;
 
 	@Column(name = "license_number")
 	private String licenseNumber;
 
 	@Column(name = "photo_path")
-	private String path;
+	private String photoPath;
 
 	@Column(name = "role")
-	@Basic
 	@Enumerated(EnumType.STRING)
 	private Role role = Role.USER;
 
@@ -65,8 +62,12 @@ public class User {
 	private Calendar modifiedDate;
 
 	@Column(name = "deleted_at")
+	@PastOrPresent
 	private Calendar deletedDate = null;
 
 	@OneToMany(mappedBy = "user")
 	private List<Vehicle> vehicles;
+
+	@OneToMany(mappedBy = "user")
+	private List<Comment> comments;
 }

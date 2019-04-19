@@ -1,4 +1,4 @@
-package com.web.carpool.model;
+package com.web.carpool.model.SharedModels;
 
 public enum City {
   UNKNOWN, TORONTO, MONTREAL, VANCOUVER, EDMONTON, OTTAWA, GATINEAU, QUEBEC_CITY, HAMILTON, LONDON, VICTORIA, HALIFAX,
