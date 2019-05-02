@@ -8,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PastOrPresent;
 
+import com.web.carpool.model.SharedModels.Account;
 import com.web.carpool.model.SharedModels.Address;
 import com.web.carpool.model.SharedModels.Name;
 import com.web.carpool.model.SharedModels.Role;
@@ -28,6 +29,9 @@ public class User {
 	@Column(name = "id")
 	private Long id;
 
+	@Embedded
+	private Account account;
+	
 	@Embedded
 	private Name name;
 
