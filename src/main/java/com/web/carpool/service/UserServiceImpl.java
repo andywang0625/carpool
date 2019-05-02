@@ -18,4 +18,16 @@ public class UserServiceImpl implements UserService{
 	public User findUserById(int id) {
 		return userRepository.findById(id);
 	}
+
+	@Override
+	public User findUserByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserByEmail() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
