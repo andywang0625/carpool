@@ -22,7 +22,7 @@ public class Vehicle {
   @NotBlank(message = "Please provide your vehicle's plate number")
   private String plate;
 
-  @Embedded
+  @Column(name = "brand")
   @Enumerated(EnumType.STRING)
   @NotEmpty(message = "Please provide your vehicle's brand")
   private VehicleBrand brand = VehicleBrand.UNKNOWN;
@@ -31,7 +31,8 @@ public class Vehicle {
   @NotBlank(message = "Please provide your vehicle's model")
   private String model;
 
-  @Embedded
+  @Column(name = "color")
+  @Enumerated(EnumType.STRING)
   @NotEmpty(message = "Please provide your vehicle's color")
   private VehicleColor color = VehicleColor.UNKNOWN;
 
