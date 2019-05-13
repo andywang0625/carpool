@@ -32,4 +32,14 @@ public class Address {
   @NotEmpty(message = "Please provide your postcode")
   @Size(min = 6, max = 6)
   private String postCode;
+
+  public String toString() {
+    return String.format("{\n" +
+            "\tprovince: %s, \n" +
+            "\tcity: %s, \n" +
+            "\tline1: %s, \n" +
+            "\tline2: %s, \n" +
+            "\tpost code: %s \n" +
+            "}", province, city, line1, line2, postCode);
+  }
 }

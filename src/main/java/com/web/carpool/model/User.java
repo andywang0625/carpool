@@ -8,10 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PastOrPresent;
 
-import com.web.carpool.model.SharedModels.Account;
-import com.web.carpool.model.SharedModels.Address;
-import com.web.carpool.model.SharedModels.Name;
-import com.web.carpool.model.SharedModels.Role;
+import com.web.carpool.model.SharedModels.*;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -29,8 +26,16 @@ public class User {
 	@Column(name = "id")
 	private Long id;
 
-	@Embedded
-	private Account account;
+//	@Embedded
+//	private Account account;
+	
+	@Column(name = "username", nullable = false)
+	@NotEmpty(message = "Username cannot be empty")
+	private String username;
+
+	@Column(name = "password", nullable = false)
+	@NotEmpty(message = "Password cannot be empty")
+	private String password;
 	
 	@Embedded
 	private Name name;
@@ -74,4 +79,26 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<Comment> comments;
+
+	public User setId(Long id){
+		this.id = id;
+		return this;
+	}
+
+	public User setPassword(String password) {
+		this.password = password;
+		return this;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
 }
