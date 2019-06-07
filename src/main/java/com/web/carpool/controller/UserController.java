@@ -1,17 +1,15 @@
 package com.web.carpool.controller;
 
+import java.io.IOException;
 import java.util.List;
 
-import com.web.carpool.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.web.carpool.model.User;
 import com.web.carpool.service.UserService;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -56,12 +54,18 @@ public class UserController {
 	}
 	
 	@GetMapping(path = "/all")
-	public @ResponseBody List<User> getAllUsers() {
+	@ResponseBody
+	public List<User> getAllUsers() {
 		return userService.findAll();
 	}
 
 	@PostMapping(path = "")
-	public @ResponseBody User createUser(@RequestBody User user) {
-		return userService.createUser(user);
+	@ResponseBody
+	public User createUser(@RequestBody User user, HttpServletResponse res) throws IOException {
+		User result = userService.createUser(user);
+		if (result == null) {
+			res.sendError(400, "User exist.");
+		}
+		return result;
 	}
 }
