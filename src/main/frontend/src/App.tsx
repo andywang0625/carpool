@@ -14,7 +14,7 @@ class AppBase extends React.Component<AppBaseProps> {
 
     const { classes } = this.props;
 
-    return <Typography>Hello World</Typography>;
+    return <Typography className={classes.root}>Hello World</Typography>;
   }
 
 }
@@ -23,9 +23,9 @@ export const App: React.ComponentType<AppProps> = compose<AppBaseProps, AppProps
   withStyles(
     (theme: Theme) => createStyles<StyleKeys>({
       root: {
-
+        color: theme.palette.primary.main,
+        fontSize: theme.typography.h1.fontSize,
       },
     }),
   ),
-)
-  (AppBase);
+)(AppBase);

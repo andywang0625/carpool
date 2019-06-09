@@ -5,9 +5,7 @@ import { typography } from './typograhphy';
 const spacingUnit = 4;
 
 export const theme = createMuiTheme({
-  spacing: {
-    unit: spacingUnit,
-  },
+  spacing: spacingUnit,
   overrides: {
     MuiTableRow: {
       head: {

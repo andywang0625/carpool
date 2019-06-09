@@ -3,7 +3,6 @@ import { palette } from './palette';
 
 export const typography = createTyprography(palette, {
   fontFamily: 'Helvetica',
-  useNextVariants: true,
   h1: {
     fontSize: 22,
     fontWeight: 600,
