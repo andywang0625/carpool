@@ -25,9 +25,6 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
-
-//	@Embedded
-//	private Account account;
 	
 	@Column(name = "username", nullable = false)
 	@NotEmpty(message = "Username cannot be empty")
