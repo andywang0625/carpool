@@ -42,6 +42,12 @@ public class User {
 	@NotEmpty(message = "Please provide an Email")
 	private String email;
 
+	@Column(name = "activated")
+	private boolean activated;
+
+	@Column(name = "confirmation_token")
+	private String confirmationToken;
+
 	@Column(name = "phone", nullable = false)
 	@NotEmpty(message = "Please provide your phone number")
 	private String phone;
@@ -87,6 +93,22 @@ public class User {
 		return this;
 	}
 
+	public void setActivated(boolean activated) {
+		this.activated = activated;
+	}
+
+	public void setConfirmationToken(String confirmationToken) {
+		this.confirmationToken = confirmationToken;
+	}
+
+	public boolean isActivated() {
+		return activated;
+	}
+
+	public String getConfirmationToken() {
+		return confirmationToken;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -101,5 +123,9 @@ public class User {
 
 	public Address getAddress() {
 		return address;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 }
