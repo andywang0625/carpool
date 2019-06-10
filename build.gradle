@@ -23,4 +23,10 @@ dependencies {
 	implementation 'org.projectlombok:lombok:1.18.6'
 	annotationProcessor 'org.projectlombok:lombok:1.18.6'
 	implementation 'com.google.guava:guava:20.0'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'spring-boot-starter-thymeleaf'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.4.RELEASE'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'com.nulab-inc:zxcvbn:1.2.3'
+	implementation 'net.sourceforge.nekohtml:nekohtml：1.9.21'
 }
