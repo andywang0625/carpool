@@ -2,10 +2,13 @@ package com.web.carpool.controller;
 
 import com.nulabinc.zxcvbn.Strength;
 import com.nulabinc.zxcvbn.Zxcvbn;
+import com.web.carpool.model.SharedModels.Name;
 import com.web.carpool.model.User;
 import com.web.carpool.service.EmailService;
 import com.web.carpool.service.UserService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,27 +26,28 @@ import java.util.UUID;
 
 @Controller
 public class RegisterController {
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    @Qualifier("userService")
     private UserService userService;
-    private EmailService emailService;
 
-    public RegisterController(BCryptPasswordEncoder bCryptPasswordEncoder, UserService userService, EmailService emailService) {
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.userService = userService;
-        this.emailService = emailService;
-    }
+    @Autowired
+    @Qualifier("emailService")
+    private EmailService emailService;
 
     // Return registration form template
     @GetMapping(value = "/register")
-    public ModelAndView showRegistrationPage(ModelAndView modelAndView, User user) {
-        modelAndView.addObject("user", user);
+    public ModelAndView showRegistrationPage(ModelAndView modelAndView, User user, Name name) {
+//        Name name = new Name();
+        modelAndView.addObject("name", name);
+        modelAndView.addObject("user", user.setName(name));
+        System.out.println("user:" + user);
         modelAndView.setViewName("register");
         return modelAndView;
     }
 
     // Process form input data
     @PostMapping(value = "/register")
-    public ModelAndView processRegistrationForm(ModelAndView modelAndView, @Valid User user, BindingResult bindingResult, HttpServletRequest request) {
+    public ModelAndView processRegistrationForm(ModelAndView modelAndView, @Valid User user, @Valid Name name, BindingResult bindingResult, HttpServletRequest request) {
 
         // Lookup user in DB by email
         User userExists = userService.findUserByEmail(user.getEmail());
@@ -123,6 +127,7 @@ public class RegisterController {
         User user = userService.findUserByConfirmationToken(requestParams.get("token").toString());
 
         // Set new password
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         user.setPassword(bCryptPasswordEncoder.encode(requestParams.get("password").toString()));
 
         // Set user to activated

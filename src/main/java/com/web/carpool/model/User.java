@@ -93,6 +93,11 @@ public class User {
 		return this;
 	}
 
+	public User setName(Name name) {
+		this.name = name;
+		return this;
+	}
+
 	public void setActivated(boolean activated) {
 		this.activated = activated;
 	}
