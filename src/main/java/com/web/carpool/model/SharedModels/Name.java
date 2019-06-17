@@ -34,4 +34,11 @@ public class Name {
         this.lastName = lastName;
         return this;
     }
+
+    public String toString() {
+        return "{" +
+                "\n\tfirstName: " + firstName +
+                "\n\tlastName: " + lastName +
+                "\n}";
+    }
 }

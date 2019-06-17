@@ -13,7 +13,7 @@ import com.web.carpool.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
 
-@Controller // This means that this class is a Controller
+@RestController // This means that this class is a Controller
 @RequestMapping(path = "/users") // This means URL's start with /users (after Application path)
 public class UserController {
 	@Autowired // This means to get the bean called userRepository
@@ -62,6 +62,7 @@ public class UserController {
 	@PostMapping(path = "")
 	@ResponseBody
 	public User createUser(@RequestBody User user, HttpServletResponse res) throws IOException {
+		System.out.println("user: " + user);
 		User result = userService.createUser(user);
 		if (result == null) {
 			res.sendError(400, "User exist.");

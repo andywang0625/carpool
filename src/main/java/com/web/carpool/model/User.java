@@ -10,6 +10,7 @@ import javax.validation.constraints.PastOrPresent;
 
 import com.web.carpool.model.SharedModels.*;
 
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -25,13 +26,13 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
-	
+
 	@Column(name = "username", nullable = false)
 	@NotEmpty(message = "Username cannot be empty")
 	private String username;
 
 	@Column(name = "password", nullable = false)
-	@NotEmpty(message = "Password cannot be empty")
+//	@NotEmpty(message = "Password cannot be empty")
 	private String password;
 	
 	@Embedded
@@ -98,6 +99,11 @@ public class User {
 		return this;
 	}
 
+	public User setAddress(Address address) {
+		this.address = address;
+		return this;
+	}
+
 	public void setActivated(boolean activated) {
 		this.activated = activated;
 	}
@@ -132,5 +138,17 @@ public class User {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public String toString() {
+		return "User( " +
+				"\nid: " + id +
+				"\nusername: " + username +
+				"\npassword: " + password +
+				"\nemail: " + email +
+				"\nphone: " + phone +
+				"\nname: " + name +
+				"\naddress: " + address +
+				"\n)";
 	}
 }

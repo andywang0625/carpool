@@ -2,6 +2,7 @@ package com.web.carpool.controller;
 
 import com.nulabinc.zxcvbn.Strength;
 import com.nulabinc.zxcvbn.Zxcvbn;
+import com.web.carpool.model.SharedModels.Address;
 import com.web.carpool.model.SharedModels.Name;
 import com.web.carpool.model.User;
 import com.web.carpool.service.EmailService;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -36,10 +38,9 @@ public class RegisterController {
 
     // Return registration form template
     @GetMapping(value = "/register")
-    public ModelAndView showRegistrationPage(ModelAndView modelAndView, User user, Name name) {
-//        Name name = new Name();
+    public ModelAndView showRegistrationPage(ModelAndView modelAndView, User user, Name name, Address address) {
         modelAndView.addObject("name", name);
-        modelAndView.addObject("user", user.setName(name));
+        modelAndView.addObject("user", user.setName(name).setAddress(address));
         System.out.println("user:" + user);
         modelAndView.setViewName("register");
         return modelAndView;
@@ -47,7 +48,11 @@ public class RegisterController {
 
     // Process form input data
     @PostMapping(value = "/register")
-    public ModelAndView processRegistrationForm(ModelAndView modelAndView, @Valid User user, @Valid Name name, BindingResult bindingResult, HttpServletRequest request) {
+    public ModelAndView processRegistrationForm(ModelAndView modelAndView, User user, @Valid Name name, Address address, BindingResult bindingResult, HttpServletRequest request) {
+
+        user.setName(name).setAddress(address);
+
+        System.out.println("user:" + user);
 
         // Lookup user in DB by email
         User userExists = userService.findUserByEmail(user.getEmail());
@@ -70,9 +75,12 @@ public class RegisterController {
             // Generation random 36-character string token for confirmation link
             user.setConfirmationToken(UUID.randomUUID().toString());
 
+            // Set up username to be the prefix of email by default
+            user.setUsername(user.getEmail().split("@")[0]);
+
             userService.createUser(user);
 
-            String appUrl = request.getScheme() + "://" + request.getServerName();
+            String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 
             SimpleMailMessage registrationEmail = new SimpleMailMessage();
             registrationEmail.setTo(user.getEmail());
@@ -81,9 +89,10 @@ public class RegisterController {
                     + appUrl + "/confirm?token=" + user.getConfirmationToken());
             registrationEmail.setFrom("noreply@gmail.com");
 
-            emailService.sendEmail(registrationEmail);
-
+            // TODO: Failed to send e-mail through google SMTP, disable temporarily.
+//            emailService.sendEmail(registrationEmail);
             modelAndView.addObject("confirmationMessage", "A confirmation e-mail has been sent to " + user.getEmail());
+            modelAndView.addObject("confirmationLink", appUrl + "/confirm?token=" + user.getConfirmationToken());
             modelAndView.setViewName("register");
         }
 
