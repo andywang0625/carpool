@@ -19,10 +19,21 @@ interface FormPersonalDetailsState {
 }
 
 export class FormPersonalDetails extends React.PureComponent<FormPersonalDetailsProps, FormPersonalDetailsState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      personalDetails: {
+        postalCode: props.postalCode,
+        phoneNumber: props.phoneNumber,
+        gender: props.gender
+      }
+    }
+  }
+
   continue = ( e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     this.props.updateForm(this.state.personalDetails);
-    this.props.nextStep();
+    // this.props.nextStep();
   };
 
   back = ( e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -32,6 +43,7 @@ export class FormPersonalDetails extends React.PureComponent<FormPersonalDetails
 
   handleTextChange = (name: keyof PersonalDetails) => (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({personalDetails: {
+      ...this.state.personalDetails,
       [name]: event.target.value} as ComponentState
     })
   }
@@ -53,7 +65,7 @@ export class FormPersonalDetails extends React.PureComponent<FormPersonalDetails
             name = "postalCode"
             margin = "normal"
             onChange= {this.handleTextChange('postalCode')}
-            defaultValue = {values.postalCode}
+            defaultValue = {this.props.values.postalCode}
         />
         <br/>
         <TextField 
@@ -61,12 +73,12 @@ export class FormPersonalDetails extends React.PureComponent<FormPersonalDetails
             name = "phoneNumber"
             margin = "normal"
             onChange= {this.handleTextChange('phoneNumber')}
-            defaultValue = {values.phoneNumber}
+            defaultValue = {this.props.values.phoneNumber}
         />
         <br/>
         <RadioGroup
             name="gender"
-            value= {values.gender}
+            defaultValue= {this.props.values.gender}
             onChange={this.handleRadioGroupChange}>
             <label>
                 <Radio value="female" />Female

@@ -23,7 +23,13 @@ export class FormUserDetails extends React.PureComponent<FormUserDetailsProps, F
 
   constructor(props: any) {
     super(props);
-    this.state = { userDetails: props.values };
+    this.state = {
+      userDetails: {
+        firstName: props.firstName,
+        lastName: props.lastName,
+        email: props.email
+      }
+    }
   }
   
   continue = ( e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -34,6 +40,7 @@ export class FormUserDetails extends React.PureComponent<FormUserDetailsProps, F
 
   handleChange = (name: keyof UserDetails) => (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({userDetails: {
+      ...this.state.userDetails,
       [name]: event.target.value} as ComponentState
     })
   }
@@ -48,7 +55,7 @@ export class FormUserDetails extends React.PureComponent<FormUserDetailsProps, F
               name = "firstName"
               margin = "normal"
               onChange= {this.handleChange('firstName')}
-              value = {values.firstName}
+              defaultValue = {this.props.values.firstName}
           />
           <br/>
           <TextField 
@@ -56,7 +63,7 @@ export class FormUserDetails extends React.PureComponent<FormUserDetailsProps, F
               name = "lastName"
               margin = "normal"
               onChange= {this.handleChange('lastName')}
-              defaultValue = {values.lastName}
+              defaultValue = {this.props.values.lastName}
           />
           <br/>
           <TextField 
@@ -64,7 +71,7 @@ export class FormUserDetails extends React.PureComponent<FormUserDetailsProps, F
               name = "email"
               margin = "normal"
               onChange= {this.handleChange('email')}
-              defaultValue = {values.email}
+              defaultValue = {this.props.values.email}
           />
           <br/>
           <Button 

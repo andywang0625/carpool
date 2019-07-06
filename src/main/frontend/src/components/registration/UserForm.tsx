@@ -1,7 +1,7 @@
-import React, { ComponentState } from 'react';
+import React from 'react';
 import { FormUserDetails, UserDetails } from '../../lib/registration/FormUserDetails';
 import { PersonalDetails, FormPersonalDetails } from '../../lib/registration/FormPersonalDetails';
-import Confirm from '../../lib/registration/Confirm';
+import { AppBar, Toolbar, IconButton } from '@material-ui/core';
 
 export interface UserFormProps {}
 
@@ -46,6 +46,7 @@ export class UserForm extends React.PureComponent<UserFormProps & UserFormBasePr
   };
 
   updateUserDetailsForm = (form: UserDetails) => {
+    console.log(this.state);
     const { firstName, lastName, email } = form;
     if(firstName) {
       this.setState({firstName: firstName});
@@ -59,6 +60,7 @@ export class UserForm extends React.PureComponent<UserFormProps & UserFormBasePr
   }
 
   updatePersonalDetailsForm = (form: PersonalDetails) => {
+    console.log(this.state);
     const { postalCode, phoneNumber, gender } = form;
     if(postalCode) {
       this.setState({postalCode: postalCode});
