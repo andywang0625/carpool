@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { compose } from 'recompose';
 import { Theme, createStyles, withStyles, WithStyles, Typography } from '@material-ui/core';
+import { UserForm } from './components/registration/UserForm';
 
 export type StyleKeys = 'root';
 
@@ -14,7 +15,7 @@ class AppBase extends React.Component<AppBaseProps> {
 
     const { classes } = this.props;
 
-    return <Typography className={classes.root}>Hello World</Typography>;
+    return <UserForm></UserForm>;
   }
 
 }
