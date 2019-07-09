@@ -12,9 +12,6 @@ import CustomizedMenus from './menu';
 class App extends React.Component {
 
   render = () => {
-
-    const { classes } = this.props;
-
     return (
       <Router>
         <div>

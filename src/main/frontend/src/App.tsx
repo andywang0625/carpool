@@ -28,12 +28,12 @@ export class App extends React.Component<{}> {
   }
 
 }
-  // withStyles(
-  //   (theme: Theme) => createStyles<"StyleKeys", AppProps>({
-  //     root: {
-  //       color: theme.palette.primary.main,
-  //       fontSize: theme.typography.h1.fontSize,
-  //     },
-  //   }),
-  // ),
+  withStyles(
+    (theme: Theme) => createStyles<StyleKeys, AppProps>({
+      root: {
+        color: theme.palette.primary.main,
+        fontSize: theme.typography.h1.fontSize,
+      },
+    }),
+  ),
 )(AppBase);

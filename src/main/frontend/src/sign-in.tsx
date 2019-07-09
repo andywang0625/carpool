@@ -1,18 +1,6 @@
 import React from 'react';
-import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, makeStyles, Container } from '@material-ui/core';
+import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Typography, makeStyles, Container } from '@material-ui/core';
 import LockoutlinedIcon from '@material-ui/icons/LockOutlined';
-
-function MadeWithLove() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Built with love by the '}
-      <a color="inherit" href="https://material-ui.com/">
-        Material-UI
-      </a>
-      {' team.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -102,9 +90,6 @@ export default function SignIn() {
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        {/* <MadeWithLove /> */}
-      </Box>
     </Container>
   );
 }

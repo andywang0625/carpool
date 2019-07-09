@@ -4,12 +4,13 @@ import { withStyles, Button, Menu, MenuItem, ListItemIcon, ListItemText } from '
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import LockoutlinedIcon from '@material-ui/icons/LockOutlined';
 import CommuteOutlinedIcon from '@material-ui/icons/CommuteOutlined';
+import { MenuProps } from '@material-ui/core/Menu';
 
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
   },
-})(props => (
+})((props: MenuProps) => (
   <Menu
     elevation={0}
     getContentAnchorEl={null}
@@ -37,9 +38,9 @@ const StyledMenuItem = withStyles(theme => ({
 }))(MenuItem);
 
 export default function CustomizedMenus() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  function handleClick(event) {
+  function handleClick(event: React.MouseEvent<HTMLElement>) {
     setAnchorEl(event.currentTarget);
   }
 
