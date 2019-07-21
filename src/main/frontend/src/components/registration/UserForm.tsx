@@ -1,111 +1,177 @@
-import React from 'react';
-import { FormUserDetails, UserDetails } from '../../lib/registration/FormUserDetails';
-import { PersonalDetails, FormPersonalDetails } from '../../lib/registration/FormPersonalDetails';
-import { AppBar, Toolbar, IconButton } from '@material-ui/core';
+import React ,{ComponentState} from 'react';
+// @ts-ignore
+import SignUp from '../../lib/registration/SignUp.tsx';
+// @ts-ignore
+import SignIn from '../../lib/registration/SignIn.tsx';
+// @ts-ignore
+import Confirm from '/Users/shutingyang/HappyCoding/2019winter_AC_carpool_program/src/main/frontend/src/lib/registration/Confirm.tsx';
+// @ts-ignore
+import Success from '/Users/shutingyang/HappyCoding/2019winter_AC_carpool_program/src/main/frontend/src/lib/registration/Success.tsx';
+// @ts-ignore
+import { BrowserRouter, Route} from "react-router-dom";
+
 
 export interface UserFormProps {}
 
 export interface UserFormBaseProps {}
 
 export interface UserFormState {
-  step: number;
-  firstName: string;
-  lastName: string;
-  email:string;
-  gender: string;
-  postalCode: string;
-  phoneNumber: string;
+    firstName: string;
+    firstNameError: string;
+    lastName: string;
+    lastNameError: string;
+    email:string;
+    emailError: string;
+    gender: string;
+    genderError: string;
+    postalCode: string;
+    postalCodeError: string;
+    phoneNumber: string;
+    phoneNumberError: string;
+    password: string;
+    passwordError:string;
+    userName: string;
 }
 
-export class UserForm extends React.PureComponent<UserFormProps & UserFormBaseProps, UserFormState> {
-  constructor(props: UserFormProps & UserFormBaseProps){
-    super(props);
-    this.state = {
-        step: 1,
-        firstName: '',
-        lastName: '',
-        email:'',
-        gender: '',
-        postalCode: '',
-        phoneNumber: ''
-    }
-  };
-
-  prevStep = () => {
-    const {step} = this.state;
-    this.setState({
-        step: step - 1
-    });
-  };
-
-  nextStep = () => {
-    const {step} = this.state;
-    this.setState({
-        step: step + 1
-    });
-  };
-
-  updateUserDetailsForm = (form: UserDetails) => {
-    console.log(this.state);
-    const { firstName, lastName, email } = form;
-    if(firstName) {
-      this.setState({firstName: firstName});
-    }
-    if(lastName) {
-      this.setState({lastName: lastName});
-    }
-    if(email) {
-      this.setState({email: email});
-    }
-  }
-
-  updatePersonalDetailsForm = (form: PersonalDetails) => {
-    console.log(this.state);
-    const { postalCode, phoneNumber, gender } = form;
-    if(postalCode) {
-      this.setState({postalCode: postalCode});
-    }
-    if(phoneNumber) {
-      this.setState({phoneNumber: phoneNumber});
-    }
-    if(gender) {
-      this.setState({gender: gender});
-    }
-  }
-
-  render() {
-    const { step } = this.state;
-    switch (step) {
-      case 1: 
-        let userDetails: UserDetails = {
-          firstName: this.state.firstName,
-          lastName: this.state.lastName,
-          email: this.state.email
+export class UserForm extends React.PureComponent<
+    UserFormProps & UserFormBaseProps,
+    UserFormState
+> {
+    constructor(props: any){
+        super(props);
+        this.state = {
+            firstName: '',
+            firstNameError:'',
+            lastName: '',
+            lastNameError: '',
+            email:'',
+            emailError: '',
+            gender: '',
+            genderError: '',
+            postalCode: '',
+            postalCodeError: '',
+            phoneNumber: '',
+            phoneNumberError:'',
+            password:'',
+            passwordError:'',
+            userName: '',
         }
-        return (
-          <FormUserDetails
-            nextStep = {this.nextStep}
-            prevStep = {this.prevStep}
-            updateForm = {this.updateUserDetailsForm}
-            values = {userDetails}
-          />
-        );
-      case 2:
-        let personalDetails: PersonalDetails = {
-          postalCode: this.state.postalCode,
-          phoneNumber: this.state.phoneNumber,
-          gender: this.state.gender
+    };
+
+    validate = () => {
+        let isError = false;
+        const check = this.state
+        const errors = {
+            firstNameError:'',
+            lastNameError: '',
+            emailError: '',
+            genderError: '',
+            postalCodeError: '',
+            phoneNumberError:'',
+            passwordError:''
+        };
+        if(check.lastName.length===0){
+            isError = true;
+            errors.lastNameError= "Last name cannot be empaty"; 
+        };
+
+        if(check.firstName.length===0){
+            isError = true;
+            errors.firstNameError = "First name cannot be empaty"
+        };
+
+        if(check.email.indexOf("@")===-1){
+            isError = true;
+            errors.emailError = "Require an valid email"
+        };
+
+        if(check.phoneNumber.length===0){
+            isError = true;
+            errors.phoneNumberError = "Require an valid phone number"
         }
-        return ( 
-          <FormPersonalDetails 
-            nextStep = {this.nextStep}
-            prevStep = {this.prevStep}
-            updateForm = {this.updatePersonalDetailsForm}
-            values = {personalDetails}
-          />
-        );
-      default:
-          return null
+
+        if(check.postalCode.length===0){
+            isError = true;
+            errors.postalCodeError = "Require an valid postal code"
+        }
+
+        // if(check.gender===""){
+        //     isError=true;
+        //     errors.genderError = "Please select a gender"
+        // }
+
+        if(check.password===""){
+            isError=true;
+            errors.passwordError ="Please enter your password"
+        }
+
+        this.setState({
+            ...this.state,
+            ...errors
+        });
+        return isError;
     }
-  }
+
+    //proceed to next step
+    // nextStep = () => {
+    //     const hasErr = this.validate();
+    //     if(!hasErr){
+    //           const {step} = this.state;
+    //           this.setState({
+    //               step: step + 1
+    //           });
+    //     };
+    // };
+
+    //go back to prev step
+    // prevStep = () => {
+    //     const {step} = this.state;
+    //     this.setState({
+    //         step: step - 1
+    //     });
+    // };
+
+    //bug here: the program doesn't go into this func. why???
+    //might be event problem???
+    handleRadioGroupChange = (event: React.ChangeEvent<unknown>, value: string): void =>{
+        this.setState({gender : value});
+    }
+
+    handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        const {target: {name, value} } = event;
+        this.setState({[name]: value} as ComponentState);
+    }    
+
+    render() {
+        const {firstName, lastName, email, gender, postalCode, phoneNumber, firstNameError, lastNameError,genderError, emailError, phoneNumberError, postalCodeError} = this.state;
+        const values = { firstName, lastName, email, gender, postalCode, phoneNumber, firstNameError, lastNameError, genderError, emailError, phoneNumberError, postalCodeError};
+
+            return(
+                <BrowserRouter>
+                        <Route path="/signUp" 
+                            render={()=> { 
+                            return (<SignUp
+                                values={values}
+                                handleChange = {this.handleChange}/>) } }/>
+                            
+
+                        <Route path="/signIn" 
+                            render={()=>
+                            <SignIn
+                                values={values}
+                                handleChange = {this.handleChange}/> }/>
+
+                        <Route path="/confirm" 
+                            render= {()=>
+                            <Confirm
+                                values={values}
+                                handleChange = {this.handleChange}/> }/>
+                    
+                        <Route path="/success" component={Success} />
+                </BrowserRouter>
+
+                );    
+    }
 }
+
+export default UserForm

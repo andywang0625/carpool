@@ -6,7 +6,11 @@ import { Theme, WithStyles, withStyles as styles, ListItemText} from '@material-
 import { ThemeProviderProps } from '@material-ui/styles/ThemeProvider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import {withRouter,RouteComponentProps} from 'react-router-dom';
+//@ts-ignore
+import { WithRouterProps } from 'react-router';
 
+type ConfirmRouteProps = {};
 
 type StyleKeys = 'root' | 'menuButton' | 'title' | 'textField' | 'button' ;
 
@@ -33,15 +37,12 @@ const withStyles = styles<StyleKeys, {}>((theme: Theme) =>
 );
 
 export interface ConfirmProps {
-    nextStep: () => void;
-    prevStep: () => void;
     handleChange: (input: React.ChangeEvent<HTMLInputElement>) => void 
     values: any; 
 }
-export interface ConfirmBaseProps extends WithStyles<StyleKeys>, ThemeProviderProps<Theme> {
-    nextStep: () => void;
+export interface ConfirmBaseProps extends WithStyles<StyleKeys>, ThemeProviderProps<Theme>, 
+RouteComponentProps<ConfirmRouteProps> {
     handleChange: (input: React.ChangeEvent<HTMLInputElement>) => void
-    prevStep: () => void;
     values: any;
     
 }
@@ -53,21 +54,14 @@ ConfirmState
 > {
     
     continue = ( e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const {history} = this.props;
         e.preventDefault();
-        this.props.nextStep();
+        history.push('/success');
     };
 
     back = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=> {
         e.preventDefault();
-        this.props.prevStep();
     }
-
-    // onInputChanged = (e:React.ChangeEvent<HTMLInputElement> ) => {
-    //     const { handleChange } = this.props;
-    //     if(handleChange) {
-    //         handleChange(e);
-    //     }
-    // }
 
     render() {
         //we have to pull the all of the props, which will be values in order to have access to these props
@@ -134,5 +128,5 @@ ConfirmState
     }
 }
 
- const Confirm = withStyles(ConfirmBase)
+ const Confirm = withStyles(withRouter(ConfirmBase))
  export default Confirm;
