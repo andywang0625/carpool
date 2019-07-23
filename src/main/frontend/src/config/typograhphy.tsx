@@ -16,10 +16,10 @@ export const typography = createTyprography(palette, {
     fontWeight: 'bold',
   },
   body1: {
-    fontSize: 10,
+    fontSize: 12,
   },
   body2: {
-    fontSize: 8,
+    fontSize: 12,
   },
   caption: {
     fontSize: 8,

@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {createStyles } from '@material-ui/core/styles';
-import { Theme, WithStyles, withStyles as styles, Grid, CssBaseline, Avatar} from '@material-ui/core';
+import { Theme, WithStyles, withStyles as styles, Grid, CssBaseline, Avatar, FormControlLabel, Checkbox} from '@material-ui/core';
 import { ThemeProviderProps } from '@material-ui/styles/ThemeProvider';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
@@ -168,6 +168,9 @@ SignUpState
                                     autoFocus
                                 />
                                 </Grid>
+                                <FormControlLabel 
+                                    control={<Checkbox value={"receiveEmail"} color="primary"/>}
+                                    label="I want to receive marketing promotions and updates via email"/>
                                 <Button 
                                     variant="contained"
                                     color="primary"
