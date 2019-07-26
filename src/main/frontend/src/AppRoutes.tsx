@@ -27,5 +27,4 @@ class AppRoutesBase extends React.PureComponent<AppRoutesBaseProps> {
 }
 
 export const AppRoutes = compose<AppRoutesBaseProps, AppRoutesProps>(
-  withRouter
-)(AppRoutesBase);
+  withRouter)(AppRoutesBase);

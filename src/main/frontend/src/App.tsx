@@ -4,9 +4,7 @@ import { AppRoutes } from './AppRoutes';
 import UserForm from './components/registration/UserForm';
 
 export class App extends React.Component<{}> {
-
   render = () => {
-
     return (
       <BrowserRouter>
         <UserForm />

@@ -88,7 +88,6 @@ Reset_PwdState
                                     margin = "normal"
                                     onChange= {handleChange}
                                     value = {values.account}
-                                    // helperText = {values.firstNameError}
                                     autoComplete="account"
                                     variant ="outlined"
                                     required

@@ -51,8 +51,7 @@ export interface ConfirmState {}
 export class ConfirmBase extends React.PureComponent<
 ConfirmBaseProps & ConfirmProps, 
 ConfirmState
-> {
-    
+> {   
     continue = ( e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const {history} = this.props;
         e.preventDefault();

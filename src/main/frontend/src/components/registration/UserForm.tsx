@@ -13,6 +13,7 @@ import { BrowserRouter, Route} from "react-router-dom";
 import Reset_Pwd from '../../lib/registration/Reset_Pwd.tsx';
 
 
+
 export interface UserFormProps {}
 
 export interface UserFormBaseProps {}
@@ -58,36 +59,6 @@ export class UserForm extends React.PureComponent<
     //         phoneNumberError:'',
     //         passwordError:''
     //     };
-    //     if(check.lastName.length===0){
-    //         isError = true;
-    //         errors.lastNameError= "Last name cannot be empaty"; 
-    //     };
-
-    //     if(check.firstName.length===0){
-    //         isError = true;
-    //         errors.firstNameError = "First name cannot be empaty"
-    //     };
-
-    //     if(check.email.indexOf("@")===-1){
-    //         isError = true;
-    //         errors.emailError = "Require an valid email"
-    //     };
-
-    //     if(check.phoneNumber.length===0){
-    //         isError = true;
-    //         errors.phoneNumberError = "Require an valid phone number"
-    //     }
-
-    //     if(check.postalCode.length===0){
-    //         isError = true;
-    //         errors.postalCodeError = "Require an valid postal code"
-    //     }
-
-        // if(check.gender===""){
-        //     isError=true;
-        //     errors.genderError = "Please select a gender"
-        // }
-
     //     if(check.password===""){
     //         isError=true;
     //         errors.passwordError ="Please enter your password"
@@ -125,6 +96,7 @@ export class UserForm extends React.PureComponent<
         this.setState({gender : value});
     }
 
+
     handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const {target: {name, value} } = event;
         this.setState({[name]: value} as ComponentState);
@@ -137,11 +109,10 @@ export class UserForm extends React.PureComponent<
             return(
                 <BrowserRouter>
                         <Route path="/signUp" 
-                            render={()=> { 
-                            return (<SignUp
+                            render={()=> 
+                            <SignUp
                                 values={values}
-                                handleChange = {this.handleChange}/>) } }/>
-                            
+                                handleChange = {this.handleChange}/> } />     
 
                         <Route path="/signIn" 
                             render={()=>
