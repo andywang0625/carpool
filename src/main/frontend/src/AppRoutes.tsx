@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Route, RouteComponentProps, Switch, withRouter } from 'react-router';
 import { compose } from 'recompose';
+import { SignUpForm } from './components/signUpRoute/SignUpForm';
 
 interface AppRoutesProps { }
 
@@ -11,16 +12,16 @@ class AppRoutesBase extends React.PureComponent<AppRoutesBaseProps> {
     <Switch>
       <Route
         path='/'
-        component={}
+        component={undefined}
         exaxt
       />
       <Route
         path='/login'
-        component={}
+        component={undefined}
       />
       <Route
         path='signup'
-        component={}
+        component={SignUpForm}
       />
     </Switch>
   )
