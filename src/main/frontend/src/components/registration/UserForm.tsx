@@ -1,7 +1,5 @@
 import React ,{ComponentState} from 'react';
 // @ts-ignore
-import SignUp from '../../lib/registration/SignUp.tsx';
-// @ts-ignore
 import SignIn from '../../lib/registration/SignIn.tsx';
 // @ts-ignore
 import Confirm from '/Users/shutingyang/HappyCoding/2019winter_AC_carpool_program/src/main/frontend/src/lib/registration/Confirm.tsx';

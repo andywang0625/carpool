@@ -253,6 +253,7 @@ class SignUpFormBase extends React.PureComponent<SignUpFormBaseProps, SignUpForm
   }
 }
 
+
 const SignUpFormInputSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
   lastName: Yup.string().required('Required'),
