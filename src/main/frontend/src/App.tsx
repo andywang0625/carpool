@@ -7,7 +7,7 @@ export class App extends React.Component<{}> {
   render = () => {
     return (
       <BrowserRouter>
-        <UserForm />
+        <AppRoutes />
       </BrowserRouter>
     );
   }

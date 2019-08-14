@@ -22,6 +22,8 @@
     "@types/recompose": "^0.30.6",
     "@types/yup": "^0.26.22",
     "acorn": "^6.1.1",
+    "apollo-server": "^2.8.1",
+    "express": "^4.17.1",
     "formik": "^1.5.8",
     "jest-resolve": "^24.8.0",
     "lodash": "^4.17.15",
