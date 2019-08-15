@@ -22,7 +22,7 @@ import { FormikProps, withFormik, Form } from 'formik';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Link } from 'react-router-dom';
 //@ts-ignore
-import { withNavigator, WithNavigatorChildProps } from '/Users/shutingyang/HappyCoding/2019winter_AC_carpool_program/src/main/frontend/src/components/shared/Navigator.tsx';
+import { withNavigator, WithNavigatorChildProps } from '/Users/shutingyang/HappyCoding/carpool/src/main/frontend/src/components/shared/Navigator.tsx';
 
 type StyleKeys = 'root' 
 | 'image' 

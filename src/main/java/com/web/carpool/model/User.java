@@ -65,14 +65,9 @@ public class User {
 	@PastOrPresent
 	private Calendar deletedDate = null;
 
-<<<<<<< HEAD
-	@OneToMany(mappedBy = "user")//one-many 主表对应viechle
-	private List<Vehicle> vehicles; // List<T> -> List,Set,Map;  
-=======
 	@OneToMany(mappedBy = "user")
 	private List<Vehicle> vehicles;
 
 	@OneToMany(mappedBy = "user")
 	private List<Comment> comments;
->>>>>>> b2e319418d78d939494f1a59e49f6468421872a4
 }
